@@ -6,11 +6,11 @@ import google from '../../../assets/google.png'
 import { useNavigate } from 'react-router-dom';
 const SignInGoogle = () => {
   const nav=useNavigate();
-    const GoogleHandler=()=>{
-    signInWithPopup(auth,provider).then((data)=>{
+    const GoogleHandler=async()=>{
+    await signInWithPopup(auth,provider).then(async(data)=>{
       const gmail=data.user.email;
       const name=data.user.displayName;
-      axios.post("https://iotex-ajgn.vercel.app/users/gmail",{userName:name,userMail:gmail},{headers: {'Content-Type': 'application/json'}})
+      await axios.post("https://iotex-ajgn.vercel.app/users/gmail",{userName:name,userMail:gmail},{headers: {'Content-Type': 'application/json'}})
       .then((res)=>{
         localStorage.setItem("token",res.data);
         nav("/projects")
